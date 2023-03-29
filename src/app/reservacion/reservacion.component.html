@@ -1,0 +1,75 @@
+<div class="container">
+    <div class="card m-2">
+        <div class="card-body">
+
+            <h3 class="card-title">SISTEMA DE RESERVACIONES</h3>
+
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalNuevo"><i
+                        class="fa-solid fa-calendar-plus"></i> Agregar</button>
+            </div>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Numero</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">PAX</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Hora</th>
+                        <th scope="col">Modificar</th>
+                        <th scope="col">Borrar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let reserva of ServicioreservacionService.reservaciones; index as i">
+                        <th scope="row">{{i+1}}</th>
+                        <td>{{reserva.nombre}}</td>
+                        <td>{{reserva.pax}}</td>
+                        <td>{{reserva.fecha}}</td>
+                        <td>{{reserva.hora}}</td>
+                        <td><button class="btn btn-warning" (click)="mostrarReservacion(content,i)"><i
+                                    class="fa-solid fa-calendar-check"></i> Modificar</button></td>
+                        <td><button class="btn btn-danger" (click)="eliminarReservacion(i)"><i
+                                    class="fa-solid fa-calendar-minus"></i> Borrar</button></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Modal Agregar-->
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Reservacion</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <label class="form-label" for="nombre">Nombre</label>
+            <input class="form-control" type="text" name="nombre" id="nombre" [(ngModel)]="reservacion.nombre">
+
+            <label class="form-label" for="pax">PAX</label>
+            <input class="form-control" type="number" name="pax" id="pax" [(ngModel)]="reservacion.pax">
+
+            <label class="form-label" for="tarjeta">Tarjeta</label>
+            <input class="form-control" type="number" name="tarjeta" id="tarjeta" [(ngModel)]="reservacion.tarjeta">
+
+            <label class="form-label" for="fecha">Fecha</label>
+            <input class="form-control" type="date" name="fecha" id="fecha" [(ngModel)]="reservacion.fecha">
+
+            <label class="form-label" for="hora">Hora</label>
+            <input class="form-control" type="time" name="hora" id="hora" [(ngModel)]="reservacion.hora">
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fa-solid fa-arrow-left"></i>
+            Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="agregarReservacion()"><i
+                class="fa-solid fa-database"></i> Guardar</button>
+    </div>
+</ng-template>
